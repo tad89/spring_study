@@ -8,8 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Handles requests for the application home page.
@@ -22,8 +26,15 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = {"/main.test", "/main.tad"}, method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	
+	ModelAndView mav;
+	
+//	@Autowired
+	TestService testService;
+	
+	@RequestMapping(value = {"/main.tad"}, method = RequestMethod.GET)
+	public ModelAndView home(Locale locale, Model model) {
+		
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
@@ -31,9 +42,27 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );
+//		model.addAttribute("serverTime", formattedDate );
+		mav = testService.test();
+		mav.addObject("serverTime", formattedDate);
+		mav.setViewName("home");
 		
-		return "home";
+		return mav;
+	}
+	
+	@RequestMapping(value="/test.tad", method=RequestMethod.POST)
+	public void test(@RequestParam(value="id") String asdf, String pass){
+		System.out.println(asdf);
+		System.out.println(pass);
+		
+	}
+	
+	@RequestMapping(value="/test.tad", method=RequestMethod.GET)
+	public String test1(){
+		return "test";
+	}
+	public void setTestService(TestService testService){
+		this.testService= testService;
 	}
 	
 }

@@ -49,20 +49,5 @@
 		<url-pattern>*.tad</url-pattern>
 	</servlet-mapping>
 	
-	<!-- Processes application requests -->
-	<servlet>
-		<servlet-name>testServlet</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:servlet-context.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-		
-	<servlet-mapping>
-		<servlet-name>appServlet</servlet-name>
-		<url-pattern>*.test</url-pattern>
-	</servlet-mapping>
 
 </web-app>
